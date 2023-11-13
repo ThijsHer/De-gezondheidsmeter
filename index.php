@@ -14,5 +14,10 @@
 <?php
 include "scr/includes/header.php";
 ?>
+<div class="buttons">
+    <button class="button">Start</button>
+    <button class="button">Start</button>
+    <button class="button">Start</button>
+</div>
 </body>
 </html>
