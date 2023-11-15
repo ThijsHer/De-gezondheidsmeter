@@ -35,12 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: index.php");
                 exit();
             } else {
-                $error_message = "Error registering user. Please try again.";
+                $error_message = "Error (´。＿。｀)";
             }
         }
 
         $check_statement->close();
-        $insert_statement->close(); 
+        $insert_statement->close();
     }
 }
 ?>
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Password</label>
             <input name="pwd" type="password" class="logininput">
             <button type="submit" name="submit" class="button">Register</button>
-            <button class="button"> <a href="login.php">Login</a></button>
+            <button class="button"><a href="login.php">Login</a></button>
         </form>
 
     </div>

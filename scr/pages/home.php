@@ -17,7 +17,7 @@ include "../../scr/includes/header.php";
 <div class="buttons">
     <button class="button">Dagschema invullen</button>
     <button class="button">Afgelopen dagen</button>
-    <button class="button">...</button>
+    <button class="button">Uitloggen</button>
 </div>
 </body>
 </html>
