@@ -1,2 +1,2 @@
 <?php
-header('location: scr/pages/home.php');
+header('location: scr/pages/login.php');
