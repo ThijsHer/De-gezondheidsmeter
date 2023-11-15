@@ -5,18 +5,15 @@ include "../includes/conn.php";
 $error_message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Form validation
     $username = trim($_POST['username']);
     $password = trim($_POST['pwd']);
 
     if (empty($username) || empty($password)) {
         $error_message = "Please fill in both username and password.";
     } else {
-        // Registration logic
         $username = mysqli_real_escape_string($conn, $username);
         $password = mysqli_real_escape_string($conn, $password);
 
-        // Check if the username is already taken
         $check_username_sql = "SELECT id FROM users WHERE username = ?";
         $check_statement = $conn->prepare($check_username_sql);
         $check_statement->bind_param('s', $username);
@@ -26,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_statement->num_rows > 0) {
             $error_message = "Username already taken. Please choose another.";
         } else {
-            // Insert the new user into the database
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $insert_sql = "INSERT INTO users (username, password, admin, blocked) VALUES (?, ?, 0, 0)";
             $insert_statement = $conn->prepare($insert_sql);
@@ -37,14 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $insert_statement->insert_id;
                 $_SESSION['username'] = $username;
                 header("Location: index.php");
-                exit(); 
+                exit();
             } else {
                 $error_message = "Error registering user. Please try again.";
             }
         }
 
         $check_statement->close();
-        $insert_statement->close(); // Close the statement within the else block
+        $insert_statement->close(); 
     }
 }
 ?>
