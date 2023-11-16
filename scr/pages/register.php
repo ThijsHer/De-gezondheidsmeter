@@ -29,10 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_statement->bind_param('ss', $username, $hashed_password);
 
             if ($insert_statement->execute()) {
-                // Registration successful
                 $_SESSION['user_id'] = $insert_statement->insert_id;
                 $_SESSION['username'] = $username;
-                header("Location: index.php");
+                header("Location: home.php");
                 exit();
             } else {
                 $error_message = "Error (´。＿。｀)";
@@ -72,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Password</label>
             <input name="pwd" type="password" class="logininput">
             <button type="submit" name="submit" class="button">Register</button>
-            <button class="button"><a href="login.php">Login</a></button>
+            <a href="login.php"><button type="button" class="button">Login</button></a>
         </form>
 
     </div>
