@@ -14,4 +14,56 @@ form {
     width: 60%;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    text-align: center;
+}
+.input {
+    margin: 1rem 0;
+    border: none;
+    font-weight: bold;
+    font-size: large;
+    color: white;
+    height: 3rem;
+    width: 14rem;
+    border-radius: 10px;
+    text-align: center;
+    background: rgb(7,185,51);
+    background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);;
+}
+
+select:focus {
+    border: none;
+}
+
+option {
+    color: #222222;
+}
+
+label {
+    text-align: left;
+    font-size: larger;
+    font-weight: bold;
+}
+
+button {
+    font-weight: bold;
+    height: 3rem;
+    width: 14rem;
+    margin: 20px 10px;
+    background-color: white;
+    border: #737272 2px solid;
+
+}
+a {
+    color: #222222;
+    text-decoration: none;
+}
+
+
+button:hover {
+    background: rgb(7,185,51);
+    background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);
+    border-image: linear-gradient(90deg, rgba(7, 185, 51, 1) 0%, rgba(46, 199, 61, 1) 36%, rgba(54, 230, 195, 1) 100%);
+    border-image-slice: 1;
+    color: white;
 }

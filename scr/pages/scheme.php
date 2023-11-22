@@ -13,6 +13,14 @@
 <body>
 
 <?php
+session_start();
+if (isset($_SESSION['user_id'])) {
+    $userID = $_SESSION['user_id'];
+} else {
+    header("Location: login.php");
+    exit();
+}
+
 include "../includes/header.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -24,10 +32,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($enteredDate > $today) {
         echo "Error: Entered date cannot be higher than today.";
     } else {
-        echo "test submit";
-    }
-}
+        $totalScore = 0;
 
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'question_') === 0) {
+                $questionId = substr($key, strlen('question_'));
+                $answer = $_POST[$key];
+
+                $query2 = "SELECT score FROM antwoorden WHERE vragen_idvragen = $questionId AND antwoord = '$answer'";
+                $result2 = $conn->query($query2);
+
+                if ($result2 && $row2 = $result2->fetch_assoc()) {
+                    $score = $row2['score'];
+                    $totalScore += intval($score);
+                } else {
+                    echo "Error: Unable to fetch answer score.";
+                }
+            }
+        }
+
+        $insertQuery = "INSERT INTO dagschema (score, date, users_id) VALUES ('$totalScore', '$enteredDate', '$userID')";
+        if ($conn->query($insertQuery) === TRUE) {
+        } else {
+            echo "Error: " . $conn->error;
+        }
+    }
+
+    $conn->close();
+}
 ?>
 
 <div class="container">
@@ -42,10 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $query = "SELECT * FROM vragen";
         $result = $conn->query($query);
 
-        $query2 = "SELECT * FROM antwoorden";
-        $result2 = $conn->query($query2);
-
-        if ($result && $result2) {
+        if ($result) {
             while ($row = $result->fetch_assoc()) {
                 $questionId = $row['idvragen'];
                 $questionText = $row['vraag'];
@@ -53,22 +82,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 echo "<label for='question_$questionId'>$questionText:</label><br>";
 
-                echo "<select name='question_$questionId' id='question_$questionId'>";
+                echo "<select class='input' name='question_$questionId' id='question_$questionId'>";
 
-                while ($row2 = $result2->fetch_assoc()) {
-                    if ($row2['vragen_idvragen'] == $questionId) {
+                $query2 = "SELECT antwoord, score FROM antwoorden WHERE vragen_idvragen = $questionId";
+                $result2 = $conn->query($query2);
+
+                if ($result2) {
+                    while ($row2 = $result2->fetch_assoc()) {
                         $answer = $row2['antwoord'];
                         $answerScore = $row2['score'];
 
                         echo "<option value='$answer' data-score='$answerScore'>$answer</option>";
                     }
+                } else {
+                    echo "Error: " . $conn->error;
                 }
 
                 echo "</select><br>";
             }
 
             $result->free();
-            $result2->data_seek(0);
         } else {
             echo "Error: " . $conn->error;
         }
@@ -77,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
 
         <label for="date">Date:</label><br>
-        <input type="date" name="date" id="date" required><br>
+        <input class="input" type="date" name="date" id="date" required><br>
         <button type="submit">Opslaan</button>
     </form>
 </div>
