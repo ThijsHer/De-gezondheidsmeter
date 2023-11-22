@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: Entered date cannot be higher than today.";
     } else {
         $totalScore = 0;
+        $numberOfQuestions = 0;
 
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'question_') === 0) {
@@ -45,13 +46,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($result2 && $row2 = $result2->fetch_assoc()) {
                     $score = $row2['score'];
                     $totalScore += intval($score);
+                    $numberOfQuestions++;
                 } else {
-                    echo "Error: Unable to fetch answer score.";
+                    echo "Error";
                 }
             }
         }
 
-        $insertQuery = "INSERT INTO dagschema (score, date, users_id) VALUES ('$totalScore', '$enteredDate', '$userID')";
+        $averageScore = $numberOfQuestions > 0 ? $totalScore / $numberOfQuestions : 0;
+
+        $insertQuery = "INSERT INTO dagschema (score, date, users_id) VALUES ('$averageScore', '$enteredDate', '$userID')";
         if ($conn->query($insertQuery) === TRUE) {
         } else {
             echo "Error: " . $conn->error;
@@ -68,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         include "../includes/conn.php";
 
         if ($conn->connect_error) {
-            die("conn failed: " . $conn->connect_error);
+            die("conn failed :( = " . $conn->connect_error);
         }
 
         $query = "SELECT * FROM vragen";

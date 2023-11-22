@@ -1,9 +1,21 @@
 .buttons {
+    width: 50%;
+
+}
+.meter {
+    width: 50%;
+
+}
+
+.background {
+    background-color: white;
     align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50%;
+    margin: 0 50px;
+    padding: 50px;
+
 }
 
 .button {
@@ -17,7 +29,10 @@
 
 .button:hover {
     background-color: #95e0e9;
-    height: 3.5rem;
-    width: 14rem;
+
+}
+
+#admin {
+    color: #e13e1a;
 }
 

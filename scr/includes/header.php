@@ -1,6 +1,6 @@
 
 <header>
     <div class="border">
-        <h1>De gezondsheids meter</h1>
+        <a href="../pages/home.php"><h1>De gezondsheids meter</h1></a>
     </div>
 </header>
