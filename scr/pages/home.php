@@ -33,7 +33,12 @@ if (isset($_SESSION['user_id'])) {
     $isAdmin = false;
 }
 ?>
+<div class="container">
+<div class="meter">
+    <div class="background">
 
+    </div>
+</div>
 <div class="buttons">
     <div class="background">
         <a href="scheme.php"><button class="button">Dagschema invullen</button></a>
@@ -46,10 +51,7 @@ if (isset($_SESSION['user_id'])) {
         <a href="../includes/logout.php"><button class="button">Uitloggen</button></a>
     </div>
 </div>
-<div class="meter">
-    <div class="background">
-
-    </div>
 </div>
+
 </body>
 </html>

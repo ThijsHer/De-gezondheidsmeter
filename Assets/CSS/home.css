@@ -1,9 +1,15 @@
 .buttons {
     width: 50%;
-
 }
+
 .meter {
     width: 50%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
 }
 
@@ -15,7 +21,7 @@
     justify-content: center;
     margin: 0 50px;
     padding: 50px;
-
+    height: 35vh;
 }
 
 .button {
@@ -29,10 +35,12 @@
 
 .button:hover {
     background-color: #95e0e9;
-
 }
 
 #admin {
     color: #e13e1a;
 }
 
+.container {
+    align-items: center;
+}
