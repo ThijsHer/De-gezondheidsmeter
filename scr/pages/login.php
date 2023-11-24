@@ -8,14 +8,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pwd']);
 
-    $sql = "SELECT id, username, password FROM users WHERE username = ?";
+    $sql = "SELECT id, username, password, blocked FROM users WHERE username = ?";
     $statement = $conn->prepare($sql);
     $statement->bind_param('s', $username);
     $statement->execute();
-    $statement->bind_result($id, $fetchedUsername, $hashedPassword);
+    $statement->bind_result($id, $fetchedUsername, $hashedPassword, $blocked);
     $statement->fetch();
-
-    if ($fetchedUsername === $username) {
+    if ($blocked === 1) {
+      $error_message = "acount is blocked";
+    }
+    else if ($fetchedUsername === $username) {
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['user_id'] = $id;
             $_SESSION['username'] = $fetchedUsername;
@@ -36,7 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
     <link rel="stylesheet" href="../../Assets/CSS/login.css">
@@ -58,7 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label>Password</label>
             <input name="pwd" type="password" class="logininput">
             <button type="submit" name="submit" class="button">Login</button>
-            <a href="register.php"><button type="button" class="button">Sign up</button></a>
+            <a href="register.php">
+                <button type="button" class="button">Sign up</button>
+            </a>
         </form>
     </div>
 </div>
