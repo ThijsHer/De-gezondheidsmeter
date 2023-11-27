@@ -30,4 +30,19 @@ class antwoorden
 
         return $questions;
     }
+
+    public function insertAnswer($antwoord, $score, $vraag_id) {
+        $sql = "INSERT INTO {$this->tableName} ({$this->tables[1]}, {$this->tables[2]}, {$this->tables[3]}) VALUES (?, ?, ?)";
+        $result = $this->connection->prepare($sql);
+
+        // Use individual variables for bind_param
+        $result->bind_param('sss', $antwoord, $score, $vraag_id);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

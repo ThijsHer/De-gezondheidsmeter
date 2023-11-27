@@ -29,4 +29,16 @@ class vragen
 
         return $questions;
     }
+
+    public function insertQuestion($vraag, $uitleg) {
+        $sql = "INSERT INTO {$this->tableName} ({$this->tables[1]}, {$this->tables[2]}) VALUES (?, ?)";
+        $result = $this->connection->prepare($sql);
+        $result->bind_param('ss', $vraag, $uitleg);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
