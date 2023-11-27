@@ -5,11 +5,9 @@ include 'connection.php';
 class vragen
 {
     private $connection;
-    private $tableName = "vragen";
 
-    public $idvragen;
-    public $vraag;
-    public $uitleg;
+    private $tableName = "vragen";
+    private $tables = ['idvragen','vragen','uitleg'];
 
     function __construct() {
         $connectionClass = new connection();
@@ -25,9 +23,9 @@ class vragen
 
         while ($row = $result->fetch_assoc()) {
             $questions[] = (object) [
-                'idvragen' => $row['idvragen'],
-                'vraag' => $row['vraag'],
-                'uitleg' => $row['uitleg']
+                $this->tables[0] => $row['idvragen'],
+                $this->tables[1] => $row['vraag'],
+                $this->tables[2] => $row['uitleg']
             ];
         }
 

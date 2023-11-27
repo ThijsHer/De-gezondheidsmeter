@@ -5,5 +5,5 @@ $controller = new vragen();
 
 $data = $controller->getQuestions();
 
-var_dump($data);
+var_dump($data[0]->idvragen);
 ?>
