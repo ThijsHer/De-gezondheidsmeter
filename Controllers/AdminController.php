@@ -1,8 +1,5 @@
 <?php
 
-require '../../Models/vragen.php';
-require '../../Models/antwoorden.php';
-
 class AdminController
 {
     public function getAllQuestions() {
