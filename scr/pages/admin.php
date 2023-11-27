@@ -1,9 +1,9 @@
 <?php
 include '../../Models/vragen.php';
 
-$vragen = new vragen();
+$controller = new vragen();
 
-$data = $vragen->getQuestions();
+$data = $controller->getQuestions();
 
-var_dump($data[0]);
+var_dump($data);
 ?>
