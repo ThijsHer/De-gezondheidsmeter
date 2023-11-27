@@ -1,9 +1,16 @@
 <?php
-include '../../Models/vragen.php';
+require '../../Controllers/AdminController.php';
 
-$controller = new vragen();
+$controller = new AdminController();
 
-$data = $controller->getQuestions();
 
-var_dump($data[0]->idvragen);
+$data = $controller->getAllQuestions();
+$data2 = $controller->getAllAnswers();
+
+foreach ($data as $DataRow) {
+    echo $DataRow->vraag . '<br>';
+}
+foreach ($data2 as $DataRow) {
+    echo $DataRow->antwoord . '<br>';
+}
 ?>
