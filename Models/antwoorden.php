@@ -5,6 +5,7 @@ class antwoorden
     private $connection;
 
     private $tableName = "antwoorden";
+    private $primaryKey = 'id';
     private $tables = ['id','antwoord','score','vragen_idvragen'];
 
     function __construct() {
@@ -45,4 +46,14 @@ class antwoorden
         }
     }
 
+    public function deleteAnswer($id) {
+        $sql = "DELETE FROM `{$this->tableName}` WHERE {$this->primaryKey} = {$id}";
+        $result = $this->connection->prepare($sql);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

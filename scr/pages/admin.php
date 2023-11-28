@@ -6,8 +6,14 @@ $controller = new AdminController();
 if (isset($_POST['createQuestion'])) {
     $controller->makeQuestion($_POST['vraag'], $_POST['uitleg']);
 }
+if (isset($_POST['deleteQuestion'])) {
+    $controller->makeQuestion($_POST['vraag'], $_POST['uitleg']);
+}
 if (isset($_POST['createAnswer'])) {
     $controller->makeAnswer($_POST['antwoord'], $_POST['score'],$_POST['vraag_id']);
+}
+if (isset($_POST['deleteAnswer'])) {
+    $controller->deleteAnswer($_POST['answer_id']);
 }
 
 //$controller->makeQuestion('test','test vraag');
@@ -33,7 +39,7 @@ foreach ($total as $record) {
     if (isset($record['answers']) && is_array($record['answers'])) {
         foreach ($record['answers'] as $DataRow) {
             if (isset($DataRow->antwoord) && $DataRow->antwoord !== null) {
-                echo $DataRow->antwoord . '<br>';
+                echo '<div style="display: flex">' . $DataRow->antwoord . '<form action="admin.php" method="post"><input type="hidden" value="' . $DataRow->id . '" name="answer_id"><input type="submit" name="deleteAnswer"></form></div><br>';
             }
         }
     }

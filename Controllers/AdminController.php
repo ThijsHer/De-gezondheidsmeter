@@ -8,8 +8,15 @@ class AdminController
         return $antwoorden->insertAnswer($antwoord, $score, $vraag_id);
     }
 
+    public function deleteAnswer($id) {
+        $antwoorden = new antwoorden();
+
+        return $antwoorden->deleteAnswer($id);
+    }
+
     private function getAllQuestions() {
         $vragen = new vragen();
+
         return $vragen->getAllQuestions();
     }
 
@@ -21,6 +28,7 @@ class AdminController
 
     private function getAllAnswers() {
         $antwoorden = new antwoorden();
+
         return $antwoorden->getAllAnswer();
     }
 
