@@ -56,4 +56,15 @@ class antwoorden
             return false;
         }
     }
+
+    public function deleteAnswerByQuestionId($id) {
+        $sql = "DELETE FROM `{$this->tableName}` WHERE vragen_idvragen = {$id}";
+        $result = $this->connection->prepare($sql);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

@@ -4,6 +4,7 @@ class vragen
 {
     private $connection;
 
+    private $primaryKey = 'idvragen';
     private $tableName = "vragen";
     private $tables = ['idvragen','vraag','uitleg'];
 
@@ -34,6 +35,17 @@ class vragen
         $sql = "INSERT INTO {$this->tableName} ({$this->tables[1]}, {$this->tables[2]}) VALUES (?, ?)";
         $result = $this->connection->prepare($sql);
         $result->bind_param('ss', $vraag, $uitleg);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function deleteQuestion($id) {
+        $sql = "DELETE FROM `{$this->tableName}` WHERE {$this->primaryKey} = {$id}";
+        $result = $this->connection->prepare($sql);
 
         if ($result->execute()) {
             return true;

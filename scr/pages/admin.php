@@ -2,11 +2,10 @@
 include_once '../../Assets/Code/AutoLoader.php';
 
 $controller = new AdminController();
-
-if (isset($_POST['createQuestion'])) {
-    $controller->makeQuestion($_POST['vraag'], $_POST['uitleg']);
-}
 if (isset($_POST['deleteQuestion'])) {
+    $controller->deleteQuestion($_POST['question_id']);
+}
+if (isset($_POST['createQuestion'])) {
     $controller->makeQuestion($_POST['vraag'], $_POST['uitleg']);
 }
 if (isset($_POST['createAnswer'])) {
@@ -21,7 +20,7 @@ if (isset($_POST['deleteAnswer'])) {
 $total = $controller->getCombinedAnswersAndQuestions();
 
 foreach ($total as $record) {
-    echo $record['question']->vraag . '<br>';
+    echo $record['question']->vraag . '<form action="admin.php" method="post"><input type="hidden" name="question_id" value="' . $record['question']->idvragen . '"><input type="submit" name="deleteQuestion"></form>';
     echo '----------' . '<br>';
     ?>
     <form action="admin.php" method="post">

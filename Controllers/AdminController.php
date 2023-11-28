@@ -26,6 +26,14 @@ class AdminController
         return $vragen->insertQuestion($vraag, $uitleg);
     }
 
+    public function deleteQuestion($id) {
+        $vragen = new vragen();
+        $antwoorden = new antwoorden();
+
+        $vragen->deleteQuestion($id);
+        $antwoorden->deleteAnswerByQuestionId($id);
+    }
+
     private function getAllAnswers() {
         $antwoorden = new antwoorden();
 
