@@ -6,7 +6,7 @@ class connection
         $serverName = "localhost";
         $dbUsername = "root";
         $dbPassword = "";
-        $dbName = "gezondheidsmeter";
+        $dbName = "gezondsheidsmeter";
 
         $conn = mysqli_connect($serverName, $dbUsername, $dbPassword, $dbName);
 
