@@ -34,9 +34,8 @@ input {
     font-weight: bold;
     font-size: large;
     color: white;
-    height: 3rem;
-    width: 14rem;
-    border-radius: 10px;
+    height: 55px;
+    width: 240px;
     text-align: center;
     background: rgb(7,185,51);
     background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);
@@ -49,10 +48,11 @@ input {
 }
 
 .typefield  {
+    max-height: 55px;
+    max-width: 240px;
     color: #222222;
     border: 3px solid;
     background: white;
-    border-radius: 10px;
     border-image: linear-gradient(90deg, rgba(7, 185, 51, 1) 0%, rgba(46, 199, 61, 1) 36%, rgba(54, 230, 195, 1) 100%);
     border-image-slice: 1;
 }
@@ -68,21 +68,26 @@ option {
 .delete-container {
     text-align: center;
     font-weight: bold;
+    margin: 8px 10px;
+    display: inline-block;
 
 }
 
 .select  {
-    margin: 1rem 0;
     font-weight: bold;
     font-size: large;
     border-radius: 10px;
     text-align: center;
-    height: 3rem;
-    width: 14rem;
+    height: 55px;
+    width: 240px;
     color: #222222;
     border: 3px solid;
     background: white;
     border-radius: 10px;
     border-image: linear-gradient(90deg, rgba(7, 185, 51, 1) 0%, rgba(46, 199, 61, 1) 36%, rgba(54, 230, 195, 1) 100%);
     border-image-slice: 1;
+
+
+
 }
+
