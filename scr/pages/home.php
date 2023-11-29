@@ -45,7 +45,7 @@ if (isset($_SESSION['user_id'])) {
         <button class="button">Afgelopen dagen</button>
 
         <?php if ($isAdmin): ?>
-            <button id="admin" class="button">Admin</button>
+            <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
         <?php endif; ?>
 
         <a href="../includes/logout.php"><button class="button">Uitloggen</button></a>
