@@ -6,7 +6,7 @@ class antwoorden
 
     private $tableName = "antwoorden";
     private $primaryKey = 'id';
-    private $tables = ['id','antwoord','score','vragen_idvragen'];
+    private $columns = ['id','antwoord','score','vragen_idvragen'];
 
     function __construct() {
         $connectionClass = new connection();
@@ -22,10 +22,10 @@ class antwoorden
 
         while ($row = $result->fetch_assoc()) {
             $questions[] = (object) [
-                $this->tables[0] => $row[$this->tables[0]],
-                $this->tables[1] => $row[$this->tables[1]],
-                $this->tables[2] => $row[$this->tables[2]],
-                $this->tables[3] => $row[$this->tables[3]]
+                $this->columns[0] => $row[$this->columns[0]],
+                $this->columns[1] => $row[$this->columns[1]],
+                $this->columns[2] => $row[$this->columns[2]],
+                $this->columns[3] => $row[$this->columns[3]]
             ];
         }
 
@@ -33,7 +33,7 @@ class antwoorden
     }
 
     public function insertAnswer($antwoord, $score, $vraag_id) {
-        $sql = "INSERT INTO {$this->tableName} ({$this->tables[1]}, {$this->tables[2]}, {$this->tables[3]}) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO {$this->tableName} ({$this->columns[1]}, {$this->columns[2]}, {$this->columns[3]}) VALUES (?, ?, ?)";
         $result = $this->connection->prepare($sql);
 
         // Use individual variables for bind_param

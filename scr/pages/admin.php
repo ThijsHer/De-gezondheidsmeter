@@ -2,6 +2,7 @@
 include_once '../../Assets/Code/AutoLoader.php';
 
 $controller = new AdminController();
+$baseController = new BaseController();
 
 if (isset($_POST['deleteQuestion'])) {
     $controller->deleteQuestion($_POST['question_id']);
@@ -18,8 +19,6 @@ if (isset($_POST['deleteAnswer'])) {
 
 $total = $controller->getCombinedAnswersAndQuestions();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,11 +47,11 @@ include '../includes/header.php';
             <input type="submit" name="createQuestion" value="Toevoegen"><br/>
         </form>
     </div>
-
     <div class="form">
         <?php
         foreach ($total as $record) {
-            echo '<p class="title">' . $record['question']->vraag . '</p><br>';
+            echo '<p class="title">' . $baseController->convertToCapitolFirstChar($record['question']->vraag) . '</p><br>';
+            echo '<p>' . $baseController->convertToCapitolFirstChar($record['question']->uitleg) . '</p><br>';
             ?>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">
@@ -71,7 +70,7 @@ include '../includes/header.php';
                     if (isset($DataRow->antwoord) && $DataRow->antwoord !== null) {
                         ?>
                         <div class="delete-container">
-                        <div> <?= $DataRow->antwoord ?>
+                        <div> <?= $baseController->convertToCapitolFirstChar($DataRow->antwoord); ?>
                             <form action="admin.php" method="post">
                                 <input type="hidden" value="<?= $DataRow->id ?>" name="answer_id">
                                 <input class="delete" type="submit" name="deleteAnswer" value="delete">

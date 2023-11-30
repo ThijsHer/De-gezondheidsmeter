@@ -4,9 +4,10 @@ class vragen
 {
     private $connection;
 
-    private $primaryKey = 'idvragen';
+
     private $tableName = "vragen";
-    private $tables = ['idvragen','vraag','uitleg'];
+    private $primaryKey = 'idvragen';
+    private $columns = ['idvragen','vraag','uitleg'];
 
     function __construct() {
         $connectionClass = new connection();
@@ -22,17 +23,49 @@ class vragen
 
         while ($row = $result->fetch_assoc()) {
             $questions[] = (object) [
-                $this->tables[0] => $row[$this->tables[0]],
-                $this->tables[1] => $row[$this->tables[1]],
-                $this->tables[2] => $row[$this->tables[2]]
+                $this->columns[0] => $row[$this->columns[0]],
+                $this->columns[1] => $row[$this->columns[1]],
+                $this->columns[2] => $row[$this->columns[2]]
             ];
         }
 
         return $questions;
     }
 
+    public function getQuestionById($id) {
+        $query = 'SELECT * FROM ' . $this->tableName . ' WHERE ' . $this->primaryKey . ' = ' . $id;
+
+        $result = $this->connection->query($query);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            $question = (object) [
+                $this->columns[0] => $row[$this->columns[0]],
+                $this->columns[1] => $row[$this->columns[1]],
+                $this->columns[2] => $row[$this->columns[2]]
+            ];
+
+            return $question;
+        } else {
+            return null;
+        }
+    }
+
+    public function updateQuestionById($id, $vraag, $uitleg) {
+        $sql = "UPDATE {$this->tableName} SET {$this->columns[1]}=?,{$this->columns[2]}=? WHERE {$this->primaryKey} = ?";
+        $result = $this->connection->prepare($sql);
+
+        $result->bind_param('ssi', $vraag, $uitleg, $id);
+
+        if ($result->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function insertQuestion($vraag, $uitleg) {
-        $sql = "INSERT INTO {$this->tableName} ({$this->tables[1]}, {$this->tables[2]}) VALUES (?, ?)";
+        $sql = "INSERT INTO {$this->tableName} ({$this->columns[1]}, {$this->columns[2]}) VALUES (?, ?)";
         $result = $this->connection->prepare($sql);
         $result->bind_param('ss', $vraag, $uitleg);
 
