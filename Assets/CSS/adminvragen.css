@@ -1,3 +1,12 @@
+* {
+    box-sizing: border-box;
+}
+
+
+select:focus, input:focus{
+    outline: none;
+}
+
 .form {
     background: white;
     width: 60%;
@@ -48,15 +57,14 @@ input {
 }
 
 .typefield  {
-    max-height: 55px;
-    max-width: 240px;
+    height: 55px !important;
+    width: 240px !important;
     color: #222222;
     border: 3px solid;
     background: white;
     border-image: linear-gradient(90deg, rgba(7, 185, 51, 1) 0%, rgba(46, 199, 61, 1) 36%, rgba(54, 230, 195, 1) 100%);
     border-image-slice: 1;
 }
-
 select:focus {
 
 }
@@ -65,7 +73,7 @@ option {
     color: #222222;
 }
 
-.delete-container {
+.delete-container, label {
     text-align: center;
     font-weight: bold;
     margin: 8px 10px;

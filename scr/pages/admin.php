@@ -39,11 +39,9 @@ include '../includes/header.php';
 <div class="container">
     <div class="form">
         <form action="admin.php" method="post">
-            <p>Voeg een vraag toe</p> <br/>
-            <label>Vraag</label><br/>
-            <input class="typefield" type="text" name="vraag"><br/>
-            <label>Uitleg</label><br/>
-            <input class="typefield" type="text" name="uitleg"><br/>
+            <p class="title">Voeg een vraag toe</p> <br/>
+            <input class="typefield" type="text" name="vraag" placeholder="Naam vraag"><br/>
+            <input class="typefield" type="text" name="uitleg" placeholder="Uitleg vraag"><br/>
             <input type="submit" name="createQuestion" value="Toevoegen"><br/>
         </form>
     </div>
@@ -55,7 +53,7 @@ include '../includes/header.php';
             ?>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">
-                <input class="typefield" type="text" name="antwoord"><br/>
+                <input class="typefield" type="text" name="antwoord" placeholder="Antwoord"><br/>
                 <select class="select" name="score">
                     <option value="-1">Niet gezond</option>
                     <option value="0">Neutraal</option>
@@ -80,7 +78,6 @@ include '../includes/header.php';
                     <?php }
                 }
             }
-
         }
         ?>
     </div>
