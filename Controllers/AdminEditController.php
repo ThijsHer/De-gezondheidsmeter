@@ -8,9 +8,15 @@ class AdminEditController
         return $vragen->getQuestionById($id);
     }
 
-    public function updateQuestionById($id, $vraag, $uitleg) {
+    public function updateQuestionById($id, $vraag, $uitleg, $categoryId) {
         $vragen = new vragen();
 
-        return $vragen->updateQuestionById($id, $vraag, $uitleg);
+        return $vragen->updateQuestionById($id, $vraag, $uitleg, $categoryId);
+    }
+
+    public function getAllCategory() {
+        $category =  new categorie();
+
+        return $category->getAllCategory();
     }
 }
