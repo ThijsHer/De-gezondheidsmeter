@@ -6,12 +6,12 @@ $controller = new AdminEditController();
 
 if (isset($_POST['saveEdit'])) {
     if($controller->updateQuestionById($_POST['id'], $_POST['question'],$_POST['explanation'])) {
-        $baseController->redirect('admin.php');
+        $baseController->redirect('admin.php',null);
     } else {
         $parameter = [
                 'id' => $_POST['id']
         ];
-        $baseController->redirect('adminBewerken.php',$parameter);
+        $baseController->redirect('adminBewerken.php',null,$parameter);
     }
 } else {
     $row = $controller->getQuestionById($_GET['id']);

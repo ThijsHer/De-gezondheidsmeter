@@ -13,13 +13,16 @@ class BaseController
         return $strFinal;
     }
 
-    public function redirect($page,$params = null) {
+    public function redirect($page,$path,$params = null) {
+        if ($path !== null) {
+            $page = $path . $page;
+        }
+
         if ($params !== null) {
             $parameter = '?' . http_build_query($params);
             $page .= $parameter;
         }
 
-        // Your redirection logic here, for example:
         header("Location: $page");
         exit();
     }
