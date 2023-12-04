@@ -49,7 +49,7 @@ include '../includes/header.php';
         <?php
         foreach ($total as $record) {
             echo '<p class="title">' . $baseController->convertToCapitolFirstChar($record['question']->vraag) . '</p><br>';
-            echo '<p>' . $baseController->convertToCapitolFirstChar($record['question']->uitleg) . '</p><br>';
+            echo '<p class="explanation">' . $baseController->convertToCapitolFirstChar($record['question']->uitleg) . '</p><br>';
             ?>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">

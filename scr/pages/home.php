@@ -42,7 +42,7 @@ if (isset($_SESSION['user_id'])) {
 <div class="buttons">
     <div class="background">
         <a href="scheme.php"><button class="button">Dagschema invullen</button></a>
-        <button class="button">Afgelopen dagen</button>
+        <a ><button class="button">Afgelopen dagen</button></a>
 
         <?php if ($isAdmin): ?>
             <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
