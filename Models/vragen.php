@@ -7,7 +7,7 @@ class vragen
 
     private $tableName = "vragen";
     private $primaryKey = 'idvragen';
-    private $columns = ['idvragen','vraag','uitleg'];
+    private $columns = ['idvragen','vraag','uitleg','categorie_id'];
 
     function __construct() {
         $connectionClass = new connection();
@@ -43,7 +43,8 @@ class vragen
             $question = (object) [
                 $this->columns[0] => $row[$this->columns[0]],
                 $this->columns[1] => $row[$this->columns[1]],
-                $this->columns[2] => $row[$this->columns[2]]
+                $this->columns[2] => $row[$this->columns[2]],
+                $this->columns[3] => $row[$this->columns[3]]
             ];
 
             return $question;
@@ -52,11 +53,11 @@ class vragen
         }
     }
 
-    public function updateQuestionById($id, $vraag, $uitleg) {
-        $sql = "UPDATE {$this->tableName} SET {$this->columns[1]}=?,{$this->columns[2]}=? WHERE {$this->primaryKey} = ?";
+    public function updateQuestionById($id, $vraag, $uitleg, $categoryId) {
+        $sql = "UPDATE {$this->tableName} SET {$this->columns[1]}=?,{$this->columns[2]}=?,{$this->columns[3]}=? WHERE {$this->primaryKey} = ?";
         $result = $this->connection->prepare($sql);
 
-        $result->bind_param('ssi', $vraag, $uitleg, $id);
+        $result->bind_param('sssi', $vraag, $uitleg, $categoryId,$id);
 
         if ($result->execute()) {
             return true;
