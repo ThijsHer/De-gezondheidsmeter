@@ -57,6 +57,10 @@ include '../includes/header.php';
             echo '<p class="title">' . $baseController->convertToCapitolFirstChar($record['question']->vraag) . '</p><br>';
             echo '<p class="explanation">' . $baseController->convertToCapitolFirstChar($record['question']->uitleg) . '</p><br>';
             ?>
+            <form action="adminBewerken.php" method="get">
+                <input type="hidden" value="<?= $record['question']->idvragen ?>" name="id">
+                <input class="edit" type="submit" value="Bewerk vraag">
+            </form>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">
                 <input class="typefield" type="text" name="antwoord" placeholder="Antwoord"><br/>
@@ -68,18 +72,19 @@ include '../includes/header.php';
                 <input type="submit" name="createAnswer" value="Toevoegen">
             </form>
 
+
             <?php
             if (isset($record['answers']) && is_array($record['answers'])) {
                 foreach ($record['answers'] as $DataRow) {
                     if (isset($DataRow->antwoord) && $DataRow->antwoord !== null) {
                         ?>
                         <div class="delete-container">
-                        <div> <?= $baseController->convertToCapitolFirstChar($DataRow->antwoord); ?>
-                            <form action="admin.php" method="post">
-                                <input type="hidden" value="<?= $DataRow->id ?>" name="answer_id">
-                                <input class="delete" type="submit" name="deleteAnswer" value="delete">
-                            </form>
-                        </div>
+                            <div> <?= $baseController->convertToCapitolFirstChar($DataRow->antwoord); ?>
+                                <form action="admin.php" method="post">
+                                    <input type="hidden" value="<?= $DataRow->id ?>" name="answer_id">
+                                    <input class="delete" type="submit" name="deleteAnswer" value="delete">
+                                </form>
+                            </div>
                         </div>
                     <?php }
                 }

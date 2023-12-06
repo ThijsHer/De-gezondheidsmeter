@@ -29,9 +29,10 @@ if (isset($_POST['saveEdit'])) {
 <link rel="stylesheet" href="../../Assets/CSS/adminBewerken.css">
 <link rel="stylesheet" href="../../Assets/CSS/main.css">
 <form class="form" action="adminBewerken.php" method="post">
+    <h1>Vraag Bewerken</h1>
     <input type="hidden" value="<?= $row->idvragen ?>" name="id">
     <input class="typefield" type="text" value="<?= $row->vraag ?>" name="question"><br>
-    <textarea class="typefield" value="<?= $row->uitleg ?>" name="explanation"></textarea><br>
+    <textarea class="typefield" name="explanation"><?php print $row->uitleg; ?></textarea><br>
     <select class="select" name="category_id"><br>
         <option>Selecteer een optie</option>
         <?php

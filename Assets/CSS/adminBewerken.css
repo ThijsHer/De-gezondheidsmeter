@@ -15,6 +15,7 @@ select:focus, input:focus{
     box-sizing: border-box;
     margin-bottom: 5%;
     text-align: center;
+    margin-top: 20px;
 }
 
 .container {
@@ -70,6 +71,7 @@ input {
 textarea {
     height: 240px !important;
     width: 500px !important;
+    font-weight: bold;
 }
 
 textarea:focus {
