@@ -24,14 +24,15 @@ if (isset($_POST['saveEdit'])) {
     $selectedCategoryId = $row->categorie_id;
     $categoryObject = $controller->getAllCategory();
 
-    var_dump($categoryObject);
 }
 ?>
-<form action="adminBewerken.php" method="post">
+<link rel="stylesheet" href="../../Assets/CSS/adminBewerken.css">
+<link rel="stylesheet" href="../../Assets/CSS/main.css">
+<form class="form" action="adminBewerken.php" method="post">
     <input type="hidden" value="<?= $row->idvragen ?>" name="id">
-    <input type="text" value="<?= $row->vraag ?>" name="question">
-    <input type="text" value="<?= $row->uitleg ?>" name="explanation">
-    <select name="category_id">
+    <input class="typefield" type="text" value="<?= $row->vraag ?>" name="question"><br>
+    <textarea class="typefield" value="<?= $row->uitleg ?>" name="explanation"></textarea><br>
+    <select class="select" name="category_id"><br>
         <option>Selecteer een optie</option>
         <?php
         foreach ($categoryObject as $row) {
@@ -42,6 +43,6 @@ if (isset($_POST['saveEdit'])) {
             }
         }
         ?>
-    </select>
+    </select><br>
     <input type="submit" name="saveEdit">
 </form>
