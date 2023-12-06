@@ -90,13 +90,13 @@ $conn->close();
 
 <body>
 <div>
-    <p><?= $feedback ?></p>
 </div>
 <form class="form" action="" method="post">
+    <h1>Edit user</h1>
     <label for="newUsername">Username:</label><br>
-    <input class="typefield" type="text" name="newUsername" required><br>
+    <input class="typefield" type="text" name="newUsername" ><br>
     <label for="newPassword">Password:</label><br>
-    <input class="typefield" type="password" name="newPassword" required><br>
+    <input class="typefield" type="password" name="newPassword" ><br>
     <label for="newAdmin">Admin:</label><br>
     <select class="select" name="newAdmin">
         <option value="0">Gebruiker</option>
@@ -129,8 +129,7 @@ $conn->close();
                 <td><input type="hidden" name="id" value="<?= $user['id'] ?>">
                     <input class="typefield" value="<?= htmlspecialchars($user['username']) ?>"></td>
                 <td>
-                    <!-- Input field for new password -->
-                    <input class="typefield" type="password" name="newPassword" placeholder="Enter new password" required>
+                    <input class="typefield" type="password" name="newPassword" placeholder="Enter new password">
                 </td>
                 <td>
                     <select class="select" name="blocked">

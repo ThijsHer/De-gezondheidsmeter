@@ -19,6 +19,7 @@ include "../includes/header.php";
     <link rel="stylesheet" href="../../Assets/CSS/header.css">
 </head>
 <body>
-<a href="admin.php">Voeg vragen toe/ pas vragen aan</a>
+<a href="admin.php">Voeg vragen toe/ pas vragen aan</a><br>
+<a href="adminUsers.php">edit users</a>
 </body>
 </html>
