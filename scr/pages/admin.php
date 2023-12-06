@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
+    header("home.php");
+    exit();
+}
+
 include_once '../../Assets/Code/AutoLoader.php';
 
 $controller = new AdminController();

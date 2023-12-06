@@ -8,31 +8,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['pwd']);
 
-    $sql = "SELECT id, username, password, blocked FROM users WHERE username = ?";
+    $sql = "SELECT id, username, password, blocked, admin FROM users WHERE username = ?";
     $statement = $conn->prepare($sql);
     $statement->bind_param('s', $username);
     $statement->execute();
-    $statement->bind_result($id, $fetchedUsername, $hashedPassword, $blocked);
+    $statement->bind_result($id, $fetchedUsername, $hashedPassword, $blocked, $user_role);
     $statement->fetch();
+
     if ($blocked === 1) {
-      $error_message = "acount is blocked";
-    }
-    else if ($fetchedUsername === $username) {
-        if (password_verify($password, $hashedPassword)) {
-            $_SESSION['user_id'] = $id;
-            $_SESSION['username'] = $fetchedUsername;
-            header("Location: home.php");
-            exit();
-        } else {
-            $error_message = "Invalid password (´。＿。｀)";
+        $error_message = "Account is blocked";
+    } elseif ($fetchedUsername === $username && password_verify($password, $hashedPassword)) {
+        $_SESSION['user_id'] = $id;
+        $_SESSION['username'] = $fetchedUsername;
+
+        if ($user_role === 1) {
+            $_SESSION['user_role'] = 1;
         }
+
+        header("Location: home.php");
+        exit();
     } else {
-        $error_message = "Invalid username (´。＿。｀)";
+        $error_message = "Invalid username or password";
     }
 
     $statement->close();
 }
 ?>
+
 
 <!doctype html>
 <html lang="en">
