@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-    header("home.php");
+    header('Location: home.php');
     exit();
 }
 

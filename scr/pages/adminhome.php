@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
+    header('Location: home.php');
+    exit();
+}
+
 include "../includes/header.php";
 ?>
 <!doctype html>
