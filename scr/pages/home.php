@@ -36,17 +36,19 @@ if (isset($_SESSION['user_id'])) {
     $result = $conn->query($totalScoreQuery);
 
     if ($result && $row = $result->fetch_assoc()) {
+        if ($row['totalScore'] < -20) {
+            $row['totalScore'] = -20;
+        }
+
+        elseif ($row['totalScore'] > 20) {
+            $row['totalScore'] = 20;
+        }
+
         $totalScore = $row['totalScore'];
     } else {
         $totalScore = 0;
     }
 
-    if ($totalScore < 20) {
-        $totalScore = 20;
-    }
-    elseif ($totalScore > -20) {
-        $totalScore = -20;
-    }
 
     $conn->close();
 } else {
@@ -61,11 +63,17 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <div class="buttons">
         <div class="background">
-            <a href="scheme.php"><button class="button">Dagschema invullen</button></a>
-            <a ><button class="button">Afgelopen dagen</button></a>
+            <a href="scheme.php">
+                <button class="button">Dagschema invullen</button>
+            </a>
+            <a>
+                <button class="button">Afgelopen dagen</button>
+            </a>
 
             <?php if ($isAdmin): ?>
-                <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
+                <a href="adminhome.php">
+                    <button id="admin" class="button">Admin</button>
+                </a>
             <?php endif; ?>
 
         </div>
