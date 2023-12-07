@@ -14,12 +14,8 @@
 
 <?php
 session_start();
+
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-}
-if (isset($_SESSION['user_id'])) {
-    $userID = $_SESSION['user_id'];
-} else {
     header("Location: login.php");
     exit();
 }
@@ -36,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: Entered date cannot be higher than today.";
     } else {
         $totalScore = 0;
-        $numberOfQuestions = 0;
 
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'question_') === 0) {
@@ -47,20 +42,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $result2 = $conn->query($query2);
 
                 if ($result2 && $row2 = $result2->fetch_assoc()) {
-                    $score = $row2['score'];
-                    $totalScore += intval($score);
-                    $numberOfQuestions++;
+                    $totalScore += intval($row2['score']);
                 } else {
                     echo "Error";
                 }
             }
         }
 
-        $averageScore = $numberOfQuestions > 0 ? $totalScore / $numberOfQuestions : 0;
-
-        $insertQuery = "INSERT INTO dagschema (score, date, users_id) VALUES ('$averageScore', '$enteredDate', '$userID')";
-        if ($conn->query($insertQuery) === TRUE) {
-        } else {
+        $insertQuery = "INSERT INTO dagschema (score, date, users_id) VALUES ('$totalScore', '$enteredDate', '{$_SESSION['user_id']}')";
+        if (!$conn->query($insertQuery)) {
             echo "Error: " . $conn->error;
         }
     }
@@ -118,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="date">Date:</label><br>
         <input class="input" type="date" name="date" id="date" required><br>
-        <button type="submit">Opslaan</button>
+        <button class="save" type="submit">Opslaan</button>
     </form>
 </div>
 </body>

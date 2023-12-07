@@ -28,6 +28,8 @@ if (isset($_POST['saveEdit'])) {
 ?>
 <link rel="stylesheet" href="../../Assets/CSS/adminBewerken.css">
 <link rel="stylesheet" href="../../Assets/CSS/main.css">
+<link rel="stylesheet" href="../../Assets/CSS/header.css">
+<?php include "../includes/header.php"; ?>
 <form class="form" action="adminBewerken.php" method="post">
     <h1>Vraag Bewerken</h1>
     <input type="hidden" value="<?= $row->idvragen ?>" name="id">

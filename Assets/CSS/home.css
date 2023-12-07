@@ -24,17 +24,18 @@
     height: 35vh;
 }
 
-.button {
-    background-color: #d5e7e7;
-    border: 2px solid #42606d;
+button {
+    margin: 1rem 0;
+    border: none;
+    font-weight: bold;
+    font-size: large;
+    color: white;
     height: 3rem;
-    width: 12rem;
-    border-radius: 5px;
-    margin-top: 15px;
-}
-
-.button:hover {
-    background-color: #95e0e9;
+    width: 14rem;
+    border-radius: 10px;
+    text-align: center;
+    background: rgb(7,185,51);
+    background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);;
 }
 
 #admin {

@@ -93,9 +93,12 @@ $conn->close();
     <link rel="stylesheet" href="../../Assets/CSS/main.css">
     <link rel="stylesheet" href="../../Assets/CSS/adminvragen.css">
     <link rel="stylesheet" href="../../Assets/CSS/adminUser.css">
+    <link rel="stylesheet" href="../../Assets/CSS/header.css">
 </head>
 
 <body>
+<?php include "../includes/header.php";
+?>
 <div>
 </div>
 <form class="form" action="" method="post">

@@ -53,7 +53,6 @@ if (isset($_SESSION['user_id'])) {
             <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
         <?php endif; ?>
 
-        <a href="../includes/logout.php"><button class="button">Uitloggen</button></a>
     </div>
 </div>
 </div>
