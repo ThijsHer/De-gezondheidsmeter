@@ -19,7 +19,6 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
 }
 
-
 if (isset($_SESSION['user_id'])) {
     $userID = $_SESSION['user_id'];
 
@@ -33,28 +32,44 @@ if (isset($_SESSION['user_id'])) {
         $isAdmin = false;
     }
 
+    $totalScoreQuery = "SELECT SUM(score) as totalScore FROM dagschema WHERE users_id = '$userID'";
+    $result = $conn->query($totalScoreQuery);
+
+    if ($result && $row = $result->fetch_assoc()) {
+        $totalScore = $row['totalScore'];
+    } else {
+        $totalScore = 0;
+    }
+
+    if ($totalScore < 20) {
+        $totalScore = 20;
+    }
+    elseif ($totalScore > -20) {
+        $totalScore = -20;
+    }
+
     $conn->close();
 } else {
     $isAdmin = false;
 }
 ?>
 <div class="container">
-<div class="meter">
-    <div class="background">
-
+    <div class="meter">
+        <div class="background">
+            <div id="totalScore"><?php echo $totalScore; ?></div>
+        </div>
     </div>
-</div>
-<div class="buttons">
-    <div class="background">
-        <a href="scheme.php"><button class="button">Dagschema invullen</button></a>
-        <a ><button class="button">Afgelopen dagen</button></a>
+    <div class="buttons">
+        <div class="background">
+            <a href="scheme.php"><button class="button">Dagschema invullen</button></a>
+            <a ><button class="button">Afgelopen dagen</button></a>
 
-        <?php if ($isAdmin): ?>
-            <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
-        <?php endif; ?>
+            <?php if ($isAdmin): ?>
+                <a href="adminhome.php"><button id="admin" class="button">Admin</button></a>
+            <?php endif; ?>
 
+        </div>
     </div>
-</div>
 </div>
 
 </body>
