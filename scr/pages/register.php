@@ -13,7 +13,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $username = mysqli_real_escape_string($conn, $username);
 
-        // Check for existing username
         $check_username_sql = "SELECT id FROM users WHERE LOWER(username) = LOWER(?)";
         $check_statement = $conn->prepare($check_username_sql);
         $check_statement->bind_param('s', $username);
@@ -23,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_statement->num_rows > 0) {
             $error_message = "Username already taken. Please choose another.";
         } else {
-            // Proceed with registration
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $insert_sql = "INSERT INTO users (username, password, admin, blocked) VALUES (?, ?, 0, 0)";
             $insert_statement = $conn->prepare($insert_sql);
@@ -43,7 +41,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Close $insert_statement outside the if statement
 if (isset($insert_statement)) {
     $insert_statement->close();
 }
