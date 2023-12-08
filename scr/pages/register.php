@@ -12,9 +12,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Please fill in both username and password.";
     } else {
         $username = mysqli_real_escape_string($conn, $username);
-        $password = mysqli_real_escape_string($conn, $password);
 
-        $check_username_sql = "SELECT id FROM users WHERE username = ?";
+        // Check for existing username
+        $check_username_sql = "SELECT id FROM users WHERE LOWER(username) = LOWER(?)";
         $check_statement = $conn->prepare($check_username_sql);
         $check_statement->bind_param('s', $username);
         $check_statement->execute();
@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_statement->num_rows > 0) {
             $error_message = "Username already taken. Please choose another.";
         } else {
+            // Proceed with registration
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $insert_sql = "INSERT INTO users (username, password, admin, blocked) VALUES (?, ?, 0, 0)";
             $insert_statement = $conn->prepare($insert_sql);
@@ -39,11 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $check_statement->close();
-        $insert_statement->close();
     }
 }
-?>
 
+// Close $insert_statement outside the if statement
+if (isset($insert_statement)) {
+    $insert_statement->close();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" name="submit" class="button">Register</button>
             <a href="login.php"><button type="button" class="button">Login</button></a>
         </form>
-
     </div>
 </div>
 

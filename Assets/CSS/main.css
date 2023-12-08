@@ -12,6 +12,9 @@ body {
 
 }
 
+button:hover {
+    cursor: pointer;
+}
 
 ::-webkit-scrollbar {
     width: 10px;
