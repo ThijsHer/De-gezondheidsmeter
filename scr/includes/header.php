@@ -4,7 +4,8 @@
             <a href="../pages/home.php"><h1>De Gezondsheidsmeter</h1></a>
         </div>
         <div class="buttons-header">
-            <a href="../includes/logout.php"><button class="button">Logout</button></a>
+            <a href="../pages/home.php"><button class="header-button">Home</button></a>
+            <a href="../includes/logout.php"><button class="header-button">Logout</button></a>
         </div>
     </div>
 </header>
