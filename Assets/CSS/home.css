@@ -21,7 +21,8 @@
     justify-content: center;
     margin: 0 50px;
     padding: 50px;
-    height: 35vh;
+    height: fit-content;
+
 }
 
 button {

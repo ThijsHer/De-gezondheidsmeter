@@ -4,13 +4,14 @@
     <link rel="stylesheet" href="../../Assets/CSS/header.css">
     <link rel="stylesheet" href="../../Assets/CSS/main.css">
     <link rel="stylesheet" href="../../Assets/CSS/home.css">
-
+    <link rel="stylesheet" href="../../Assets/CSS/meter.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>De gezondheidsmeter</title>
-
 </head>
 <body>
+
+<script rel="script" src="../../Assets/JS/meter.js"></script>
 <?php
 include "../../scr/includes/header.php";
 
@@ -36,16 +37,12 @@ if (isset($_SESSION['user_id'])) {
     $result = $conn->query($totalScoreQuery);
 
     if ($result && $row = $result->fetch_assoc()) {
-        if ($row['totalScore'] < -20) {
-            $row['totalScore'] = -20;
-        }
-
-        elseif ($row['totalScore'] > 20) {
-            $row['totalScore'] = 20;
-        }
-
         $totalScore = $row['totalScore'];
-    } else {
+    }
+    if ($totalScore > 18) {
+        $totalScore = 18;
+    }
+    elseif ($totalScore < 0) {
         $totalScore = 0;
     }
 
@@ -53,12 +50,22 @@ if (isset($_SESSION['user_id'])) {
     $conn->close();
 } else {
     $isAdmin = false;
+    $totalScore = 0;
 }
 ?>
 <div class="container">
     <div class="meter">
         <div class="background">
-            <div id="totalScore"><?php echo $totalScore; ?></div>
+            <?php include "../includes/meter.php" ?>
+            <div id="totalScore"><?php echo $row['totalScore'];; ?></div>
+            <script>
+                console.log("Before loop. Total Score:", <?php echo $totalScore; ?>);
+                for (let i = 0; i < Math.abs(<?php echo $totalScore; ?>); i++) {
+                    console.log("Inside loop. Iteration:", i);
+                    increaseSpeed();
+                }
+                console.log("After loop.");
+            </script>
         </div>
     </div>
     <div class="buttons">
@@ -69,16 +76,14 @@ if (isset($_SESSION['user_id'])) {
             <a>
                 <button class="button">Afgelopen dagen</button>
             </a>
-
+            <?php echo $totalScore; ?>
             <?php if ($isAdmin): ?>
                 <a href="adminhome.php">
                     <button id="admin" class="button">Admin</button>
                 </a>
             <?php endif; ?>
-
         </div>
     </div>
 </div>
-
 </body>
 </html>
