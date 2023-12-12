@@ -89,7 +89,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usernames Table</title>
+    <title>edit users</title>
     <link rel="stylesheet" href="../../Assets/CSS/main.css">
     <link rel="stylesheet" href="../../Assets/CSS/adminvragen.css">
     <link rel="stylesheet" href="../../Assets/CSS/adminUser.css">
@@ -101,19 +101,7 @@ $conn->close();
 ?>
 <div>
 </div>
-<form class="form" action="" method="post">
-    <h1>Edit user</h1>
-    <label for="newUsername">Username:</label><br>
-    <input class="typefield" type="text" name="newUsername" ><br>
-    <label for="newPassword">Password:</label><br>
-    <input class="typefield" type="password" name="newPassword" ><br>
-    <label for="newAdmin">Admin:</label><br>
-    <select class="select" name="newAdmin">
-        <option value="0">Gebruiker</option>
-        <option value="1">Admin</option>
-    </select><br>
-    <button type="submit" name="addUser">Add User</button>
-</form>
+
 
 <form class="form search" action="" method="get">
     <label for="search">Search by Username:</label>

@@ -7,10 +7,16 @@ $error_message = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['pwd']);
+    $rpassword = trim($_POST['rpwd']);
 
     if (empty($username) || empty($password)) {
         $error_message = "Please fill in both username and password.";
-    } else {
+    }
+    elseif ($password != $rpassword) {
+        $error_message = "Passwords do not match.";
+    }
+
+    else {
         $username = mysqli_real_escape_string($conn, $username);
 
         $check_username_sql = "SELECT id FROM users WHERE LOWER(username) = LOWER(?)";
@@ -71,6 +77,8 @@ if (isset($insert_statement)) {
             <input name="username" type="text" class="logininput">
             <label>Password</label>
             <input name="pwd" type="password" class="logininput">
+            <label>Repeat Password</label>
+            <input name="rpwd" type="password" class="logininput">
             <button type="submit" name="submit" class="button">Register</button>
             <a href="login.php"><button type="button" class="button">Login</button></a>
         </form>
