@@ -1,14 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-    header('Location: login.php');
-    exit();
-}
-
 include '../../Assets/Code/AutoLoader.php';
 
 $baseController = new BaseController();
 $controller = new AdminEditController();
+
+$baseController->checkAdmin();
 
 if (isset($_POST['saveEdit'])) {
     if($controller->updateQuestionById($_POST['id'], $_POST['question'],$_POST['explanation'], $_POST['category_id'])) {

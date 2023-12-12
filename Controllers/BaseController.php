@@ -3,7 +3,17 @@
 class BaseController
 {
     public function checkAdmin() {
-        //nog niks
+        if(session_start() === true) {
+            if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
+                $this->redirect('login.php','../../scr/pages/');
+            }
+        } else {
+            session_start();
+
+            if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
+                $this->redirect('login.php','../scr/pages/login.php');
+            }
+        }
     }
 
     public function convertToCapitolFirstChar($str) {

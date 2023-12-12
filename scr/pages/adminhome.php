@@ -1,11 +1,9 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-    header('Location: login.php');
-    exit();
-}
-
 include "../includes/header.php";
+
+$baseController = new BaseController();
+
+$baseController->checkAdmin();
 ?>
 <!doctype html>
 <html lang="en">

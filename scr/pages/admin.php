@@ -1,14 +1,10 @@
 <?php
-session_start();
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-    header('Location: login.php');
-    exit();
-}
-
 include_once '../../Assets/Code/AutoLoader.php';
 
 $controller = new AdminController();
 $baseController = new BaseController();
+
+$baseController->checkAdmin();
 
 if (isset($_POST['deleteQuestion'])) {
     $controller->deleteQuestion($_POST['question_id']);
