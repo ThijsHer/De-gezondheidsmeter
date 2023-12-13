@@ -1,6 +1,6 @@
 <?php
 include "../includes/header.php";
-
+include "../../Controllers/BaseController.php";
 $baseController = new BaseController();
 
 $baseController->checkAdmin();

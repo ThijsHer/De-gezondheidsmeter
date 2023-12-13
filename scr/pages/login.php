@@ -1,28 +1,8 @@
 <?php
-include '../../Assets/Code/AutoLoader.php';
-include '../includes/conn.php';
-
-$controller = new LoginController();
-$baseController = new BaseController();
+session_start();
+include "../includes/conn.php";
 
 $error_message = '';
-
-//if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//    $result = $controller->login($_POST['username'], $_POST['pwd']);
-//
-//    if ($result === 2) {
-//        //echo 'suka blyad';
-//        //$baseController->redirect('home.php', null);
-//        header('Location: home.php');
-//        exit;
-//    } elseif ($result === 1) {
-//        $error_message = 'Combinatie fout';
-//    } elseif ($result === 0) {
-//        $error_message = 'Account geblokkeerd';
-//    } else {
-//        $error_message = 'Gebruiker niet gevonden';
-//    }
-//}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
@@ -59,16 +39,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <link rel="stylesheet" href="../../Assets/CSS/login.css">
-    <link rel="stylesheet" href="../../Assets/CSS/main.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+        <link rel="stylesheet" href="../../Assets/CSS/login.css">
+        <link rel="stylesheet" href="../../Assets/CSS/main.css">
+    </head>
 <body>
-
 <div class="login">
     <div class="form">
         <h1>Login</h1>
@@ -89,6 +69,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </form>
     </div>
 </div>
-
 </body>
 </html>
