@@ -25,4 +25,13 @@ class LoginController
             return -1;
         }
     }
+
+    public function getDataByName($name) {
+        $connectionClass = new connection();
+        $usersClass = new users();
+
+        $safeName = mysqli_real_escape_string($connectionClass->setConnection(), $name);
+
+        return $usersClass->getUserByName($safeName);
+    }
 }
