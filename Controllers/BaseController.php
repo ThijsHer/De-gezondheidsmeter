@@ -11,7 +11,7 @@ class BaseController
             session_start();
 
             if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-                $this->redirect('login.php','../scr/pages/login.php');
+                $this->redirect('login.php','../scr/pages/');
             }
         }
     }
