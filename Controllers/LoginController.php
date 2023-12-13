@@ -26,6 +26,7 @@ class LoginController
         }
     }
 
+
     public function getDataByName($name) {
         $connectionClass = new connection();
         $usersClass = new users();
