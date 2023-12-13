@@ -1,5 +1,6 @@
 <?php
 include '../../Assets/Code/AutoLoader.php';
+include '../includes/conn.php';
 
 $controller = new LoginController();
 $baseController = new BaseController();
