@@ -23,9 +23,9 @@ class BaseController
         return $strFinal;
     }
 
-    public function redirect($page,$path,$params = null) {
+    public function redirect($page, $path, $params = null) {
         if ($path !== null) {
-            $page = $path . $page;
+            $page = rtrim($path, '/') . '/' . ltrim($page, '/');
         }
 
         if ($params !== null) {
@@ -34,6 +34,5 @@ class BaseController
         }
 
         header("Location: $page");
-        exit();
     }
 }

@@ -6,20 +6,55 @@ $baseController = new BaseController();
 
 $error_message = '';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $result = $controller->login($_POST['username'], $_POST['pwd']);
+//if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//    $result = $controller->login($_POST['username'], $_POST['pwd']);
+//
+//    if ($result === 2) {
+//        //echo 'suka blyad';
+//        //$baseController->redirect('home.php', null);
+//        header('Location: home.php');
+//        exit;
+//    } elseif ($result === 1) {
+//        $error_message = 'Combinatie fout';
+//    } elseif ($result === 0) {
+//        $error_message = 'Account geblokkeerd';
+//    } else {
+//        $error_message = 'Gebruiker niet gevonden';
+//    }
+//}
 
-    if ($result === 2) {
-        $baseController->redirect('home.php', null);
-    } elseif ($result === 1) {
-        $error_message = 'Combinatie fout';
-    } elseif ($result === 0) {
-        $error_message = 'Account geblokkeerd';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['pwd']);
+
+    $sql = "SELECT id, username, password, blocked, admin FROM users WHERE username = ?";
+    $statement = $conn->prepare($sql);
+    $statement->bind_param('s', $username);
+    $statement->execute();
+    $statement->bind_result($id, $fetchedUsername, $hashedPassword, $blocked, $user_role);
+    $statement->fetch();
+
+    if ($blocked === 1) {
+        $error_message = "Account is blocked";
+    } elseif ($fetchedUsername === $username && password_verify($password, $hashedPassword)) {
+        $_SESSION['user_id'] = $id;
+        $_SESSION['username'] = $fetchedUsername;
+
+        if ($user_role === 1) {
+            $_SESSION['user_role'] = 1;
+        }
+
+        header("Location: home.php");
+        exit();
     } else {
-        $error_message = 'Gebruiker niet gevonden';
+        $error_message = "Invalid username or password";
     }
+
+    $statement->close();
 }
 ?>
+
+
 <!doctype html>
 <html lang="en">
 <head>
