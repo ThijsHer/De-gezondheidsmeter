@@ -18,7 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $data->username;
         $_SESSION['user_role'] = $data->admin;
 
-
         $baseController->redirect('home.php',null);
     } elseif ($result === 1) {
         $error_message = 'Combinatie fout';

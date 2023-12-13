@@ -32,6 +32,7 @@ class users
                     $this->columns[4] => $row[$this->columns[4]]
                 ];
             }
+
             return $questions;
         } else {
             return false;
