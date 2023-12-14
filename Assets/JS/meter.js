@@ -37,8 +37,3 @@ function changeActive() {
     let el = document.getElementsByClassName(tempClass)[0];
     el.classList.toggle("active");
 }
-
-function changeText() {
-    let el = document.getElementsByClassName("km")[0];
-    el.innerText = speed;
-}

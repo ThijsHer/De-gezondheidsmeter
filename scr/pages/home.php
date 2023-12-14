@@ -73,7 +73,7 @@ if (isset($_SESSION['user_id'])) {
             <a href="scheme.php">
                 <button class="button">Dagschema invullen</button>
             </a>
-            <a>
+            <a href="prevdays.php">
                 <button class="button">Afgelopen dagen</button>
             </a>
             <?php if ($isAdmin): ?>
