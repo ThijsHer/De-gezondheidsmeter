@@ -1,6 +1,7 @@
 <?php
 include_once '../../Assets/Code/AutoLoader.php';
 
+
 $controller = new AdminController();
 $baseController = new BaseController();
 

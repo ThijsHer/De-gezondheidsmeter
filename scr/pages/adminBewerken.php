@@ -1,6 +1,6 @@
 <?php
 include '../../Assets/Code/AutoLoader.php';
-
+include '../../Controllers/BaseController.php';
 $baseController = new BaseController();
 $controller = new AdminEditController();
 

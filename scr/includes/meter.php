@@ -1,7 +1,7 @@
 <div class="speedometer-container">
     <div class="center-point"></div>
     <div class="speedometer-center-hide"></div>
-    <div class="speedometer-bottom-hide"></div>
+    <div class="speedometer-bottom-hide">waddup future king over here</div>
     <div class="arrow-container">
         <div class="arrow-wrapper speed-0">
             <div class="arrow"></div>

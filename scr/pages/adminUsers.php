@@ -1,12 +1,11 @@
 <?php
-
-session_start();
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 1) {
-    header('Location: login.php');
-    exit();
-}
-
 include "../includes/conn.php";
+include "../../Controllers/BaseController.php";
+
+$baseController = new BaseController();
+
+$baseController->checkAdmin();
+
 
 if ($conn->connect_error) {
     die($conn->connect_error);
