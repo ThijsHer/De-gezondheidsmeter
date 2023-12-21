@@ -18,10 +18,10 @@ class antwoorden
 
         $result = $this->connection->query($query);
 
-        $questions = [];
+        $answers = [];
 
         while ($row = $result->fetch_assoc()) {
-            $questions[] = (object) [
+            $answers[] = (object) [
                 $this->columns[0] => $row[$this->columns[0]],
                 $this->columns[1] => $row[$this->columns[1]],
                 $this->columns[2] => $row[$this->columns[2]],
@@ -29,7 +29,7 @@ class antwoorden
             ];
         }
 
-        return $questions;
+        return $answers;
     }
 
     public function insertAnswer($antwoord, $score, $vraag_id) {
