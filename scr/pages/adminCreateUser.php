@@ -1,32 +1,24 @@
 <?php
-include "../../Controllers/BaseController.php";
+include "../../Assets/Code/AutoLoader.php";
 
 $baseController = new BaseController();
+$controller = new AdminCreateController();
 
 $baseController->checkAdmin();
 
-if ($conn->connect_error) {
-    die($conn->connect_error);
-}
+if (isset($_POST['addUser'])) {
+    $feedback = "";
 
-$feedback = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addUser'])) {
     $newUsername = $_POST['newUsername'];
     $newPassword = $_POST['newPassword'];
     $newAdmin = $_POST['newAdmin'];
 
-    $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-    $insertSql = "INSERT INTO users (username, password, admin, blocked) VALUES ('$newUsername', '$hashedPassword', $newAdmin, 0)";
-    if ($conn->query($insertSql) === TRUE) {
-        $feedback = "User added successfully";
+    if($controller->insertUser($newUsername,$newPassword,$newAdmin,0)) {
+        $feedback = "Gebruiker succesvol toegevoegd";
     } else {
-        $feedback = "Error adding user: " . $conn->error;
+        $feedback = "Gebruiker fout gegaan met toevoegen";
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>

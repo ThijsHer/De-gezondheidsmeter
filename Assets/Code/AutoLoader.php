@@ -11,4 +11,5 @@ require_once '../../Controllers/LoginController.php';
 require_once '../../Controllers/AdminController.php';
 require_once '../../Controllers/AdminEditController.php';
 require_once '../../Controllers/BaseController.php';
+require_once '../../Controllers/AdminCreateController.php';
 ?>
