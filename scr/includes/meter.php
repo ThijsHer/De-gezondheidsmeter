@@ -19,7 +19,7 @@
         elseif ($totalScore < 9) {
             $feedback = "je bent gezond bezig";
         }
-        
+
         $conn->close();
         ?>
         <p><?= $feedback ?></p>
