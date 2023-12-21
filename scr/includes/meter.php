@@ -1,7 +1,30 @@
 <div class="speedometer-container">
     <div class="center-point"></div>
     <div class="speedometer-center-hide"></div>
-    <div class="speedometer-bottom-hide">waddup future king over here</div>
+    <div class="speedometer-bottom-hide">
+        <?php
+        include "../includes/conn.php";
+        $totalScoreQuery = "SELECT SUM(score) as totalScore FROM dagschema WHERE users_id = '$userID'";
+        $result = $conn->query($totalScoreQuery);
+
+        if ($result && $row = $result->fetch_assoc()) {
+            $totalScore = $row['totalScore'];
+        }
+        if ($totalScore >= 18) {
+            $feedback = "Je bent ongezond bezig";
+        }
+        elseif ($totalScore > 9) {
+            $feedback = "je bent lekker bezig";
+        }
+        elseif ($totalScore < 9) {
+            $feedback = "je bent gezond bezig";
+        }
+        
+        $conn->close();
+        ?>
+        <p><?= $feedback ?></p>
+
+    </div>
     <div class="arrow-container">
         <div class="arrow-wrapper speed-0">
             <div class="arrow"></div>
