@@ -1,3 +1,7 @@
+html {
+    height: 100%;
+}
+
 body {
     background-color: #e5e5e5;
     margin: 0;
@@ -7,6 +11,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 form {
@@ -16,6 +21,7 @@ form {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: center;
     text-align: center;
+    min-height: 70%;
 }
 .input {
     margin: 1rem 0;

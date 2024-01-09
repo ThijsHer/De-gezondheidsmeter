@@ -1,6 +1,6 @@
-var speed = 0;
-var prevSpeed = 0;
-var currentScale = 1;
+let speed = 0;
+let prevSpeed = 0;
+let currentScale = 1;
 
 function increaseSpeed() {
     if (speed < 180) {
@@ -8,16 +8,6 @@ function increaseSpeed() {
         addClass();
         currentScale = currentScale + 1;
         changeActive();
-    }
-}
-
-function decreaseSpeed() {
-    if (speed > 0) {
-        speed = speed - 10;
-        addClass();
-        changeActive();
-        currentScale = currentScale - 1;
-        changeText();
     }
 }
 
