@@ -87,3 +87,7 @@ a {
     background: rgb(7,185,51);
     background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);;
 }
+
+.buttonWrapper {
+    display: flex;
+}

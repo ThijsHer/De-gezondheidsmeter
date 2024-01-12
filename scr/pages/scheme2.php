@@ -28,11 +28,11 @@
         }
 
         .button {
-            background-color: #fff; /* Default background color for buttons */
+            background-color: #fff;
         }
 
         .button.selected {
-            background-color: blue; /* Background color for selected buttons */
+            background-color: blue;
         }
 
         body, html {
@@ -66,69 +66,7 @@
     </style>
 </head>
 <body>
-
-<script>
-    let counterDisplay = document.querySelector('.counter-div');
-    let counter = 1;
-
-    function displayCounter() {
-        counterDisplay.innerHTML = counter;
-    }
-
-    function showQuestion(questionId) {
-        let questions = document.querySelectorAll(".question");
-        questions.forEach(function (question) {
-            question.classList.add("hidden");
-        });
-
-        let currentQuestion = document.getElementById("question_" + questionId);
-        if (currentQuestion) {
-            currentQuestion.classList.remove("hidden");
-        }
-    }
-
-    function nextQuestion(currentQuestionId, totalQuestions) {
-        let nextQuestionId = currentQuestionId + 1;
-        if (nextQuestionId <= totalQuestions) {
-            showQuestion(nextQuestionId);
-            counter = nextQuestionId;
-            displayCounter();
-        }
-    }
-
-    function prevQuestion(currentQuestionId) {
-        let prevQuestionId = currentQuestionId - 1;
-        if (prevQuestionId >= 1) {
-            showQuestion(prevQuestionId);
-            counter = prevQuestionId;
-            displayCounter();
-        }
-    }
-
-    function selectAnswer(button) {
-        // Remove 'selected' class from all answer buttons
-        document.querySelectorAll('.button').forEach(function (btn) {
-            btn.classList.remove('selected');
-        });
-
-        // Add 'selected' class to the clicked answer button
-        button.classList.add('selected');
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        showQuestion(1);
-        displayCounter();
-
-        var answerButtons = document.querySelectorAll(".button");
-        answerButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                selectAnswer(button);
-
-                // You can add additional logic here if needed
-            });
-        });
-    });
-</script>
+<script src="../../Assets/JS/scheme.js" defer></script>
 
 <?php
 session_start();
@@ -179,54 +117,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="container">
     <form method="post" action="">
+        <div id="questions">
+            <div class='counter-div'>1</div>
         <?php
         include "../includes/conn.php";
 
         if ($conn->connect_error) {
-            die("conn failed :( = " . $conn->connect_error);
+            die("Connection failed: " . $conn->connect_error);
         }
-        $counter = 1;
+
         $query = "SELECT * FROM vragen";
         $result = $conn->query($query);
 
-        if ($result) {
+        if ($result === false) {
+            echo "Error executing query: " . $conn->error;
+        } else {
             $totalQuestions = $result->num_rows;
-            $questionNumber = 1;
-            while ($row = $result->fetch_assoc()) {
-                $questionId = $row['idvragen'];
-                $questionText = $row['vraag'];
-                $questionExplanation = $row['uitleg'];
 
-                echo "<div data-question-id='$questionId' data-question-number='$questionNumber' class='question " . ($questionNumber > 1 ? "hidden" : "") . "'>";
-                echo "<div class='center-label'> <label for='question_$questionId'><div class='counter-div'></div> $questionText</label></div><br>";
+            if ($totalQuestions > 0) {
 
-                $query2 = "SELECT antwoord, score FROM antwoorden WHERE vragen_idvragen = $questionId";
-                $result2 = $conn->query($query2);
+                $questionNumber = 1;
 
-                if ($result2) {
-                    while ($row2 = $result2->fetch_assoc()) {
-                        $answer = $row2['antwoord'];
-                        $answerScore = $row2['score'];
+                while ($row = $result->fetch_assoc()) {
+                    $questionId = $row['idvragen'];
+                    $questionText = $row['vraag'];
+                    $questionExplanation = $row['uitleg'];
 
-                        echo "<button type='button' class='button' data-answer='$answer' data-score='$answerScore'>$answer</button>";
+                    echo "<div data-question-id='$questionId' data-question-number='$questionNumber' class='question " . ($questionNumber > 1 ? "hidden" : "") . "'>";
+                    echo "<div class='center-label'><label for='question_$questionId'> $questionText</label></div><div class='buttonWrapper'>";
+
+                    $query2 = "SELECT antwoord, score FROM antwoorden WHERE vragen_idvragen = $questionId";
+                    $result2 = $conn->query($query2);
+
+                    if ($result2 === false) {
+                        echo "Error executing query: " . $conn->error;
+                    } else {
+                        while ($row2 = $result2->fetch_assoc()) {
+                            $answer = $row2['antwoord'];
+                            $answerScore = $row2['score'];
+
+                            echo "<button type='button' class='button' data-answer='$answer' data-score='$answerScore'>$answer</button>";
+                        }
                     }
-                } else {
-                    echo "Error: " . $conn->error;
+
+                    echo "</div>";
+                    echo "</div>";
+
+                    $questionNumber++;
                 }
 
-                echo "</div>";
-
-                $questionNumber++;
+                $result->free();
+            } else {
+                echo "No questions found";
             }
 
-            $result->free();
-        } else {
-            echo "Error: " . $conn->error;
+            $conn->close();
         }
-
-        $conn->close();
         ?>
-
+        </div>
         <input class="input" type="date" name="date" id="date" required><br>
         <div class="buttons">
             <button class="save" type="button" onclick="prevQuestion()">Vorige</button>

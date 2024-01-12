@@ -1,3 +1,22 @@
+<?php
+include "../includes/conn.php";
+
+if ($conn->connect_error) {
+    die("conn failed :( = " . $conn->connect_error);
+}
+
+$query = "SELECT * FROM vragen";
+$result = $conn->query($query);
+
+if ($result) {
+    $totalQuestions = $result->num_rows;
+} else {
+    echo "Error: " . $conn->error;
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +31,7 @@
         .hidden {
             display: none;
         }
+
         .center-label {
             text-align: center;
             display: flex;
@@ -62,74 +82,14 @@
 
         button {
             height: 3rem !important;
+            margin: 5px;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
 
-<script>
-    let counterDisplay = document.querySelector('.counter-div');
-    let counter = 1;
-
-    function displayCounter() {
-        counterDisplay.innerHTML = counter;
-    }
-
-    function showQuestion(questionId) {
-        let questions = document.querySelectorAll(".question");
-        questions.forEach(function (question) {
-            question.classList.add("hidden");
-        });
-
-        let currentQuestion = document.getElementById("question_" + questionId);
-        if (currentQuestion) {
-            currentQuestion.classList.remove("hidden");
-        }
-    }
-
-    function nextQuestion(currentQuestionId, totalQuestions) {
-        let nextQuestionId = currentQuestionId + 1;
-        if (nextQuestionId <= totalQuestions) {
-            showQuestion(nextQuestionId);
-            counter = nextQuestionId;
-            displayCounter();
-        }
-    }
-
-    function prevQuestion(currentQuestionId) {
-        let prevQuestionId = currentQuestionId - 1;
-        if (prevQuestionId >= 1) {
-            showQuestion(prevQuestionId);
-            counter = prevQuestionId;
-            displayCounter();
-        }
-    }
-
-    function selectAnswer(button) {
-        // Remove 'selected' class from all answer buttons
-        document.querySelectorAll('.button').forEach(function (btn) {
-            btn.classList.remove('selected');
-        });
-
-        // Add 'selected' class to the clicked answer button
-        button.classList.add('selected');
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        showQuestion(1);
-        displayCounter();
-
-        var answerButtons = document.querySelectorAll(".button");
-        answerButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                selectAnswer(button);
-
-                // You can add additional logic here if needed
-            });
-        });
-    });
-</script>
-
+<script src="../" defer></script>
 <?php
 session_start();
 
@@ -174,7 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-}?>
+}
+?>
 
 <div class="container">
     <form method="post" action="">
@@ -184,19 +145,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($conn->connect_error) {
             die("conn failed :( = " . $conn->connect_error);
         }
-        $counter = 1;
+
         $query = "SELECT * FROM vragen";
         $result = $conn->query($query);
 
         if ($result) {
-            $totalQuestions = $result->num_rows;
             $questionNumber = 1;
+
             while ($row = $result->fetch_assoc()) {
                 $questionId = $row['idvragen'];
                 $questionText = $row['vraag'];
                 $questionExplanation = $row['uitleg'];
 
-                echo "<div data-question-id='$questionId' data-question-number='$questionNumber' class='question " . ($questionNumber > 1 ? "hidden" : "") . "'>";
+                echo "<div data-question-id='$questionId' data-question-number='$questionNumber' class='question " . ($questionNumber > 1 ? "hidden" : "") . "' id='question_$questionId'>";
                 echo "<div class='center-label'> <label for='question_$questionId'><div class='counter-div'></div> $questionText</label></div><br>";
 
                 $query2 = "SELECT antwoord, score FROM antwoorden WHERE vragen_idvragen = $questionId";
@@ -207,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $answer = $row2['antwoord'];
                         $answerScore = $row2['score'];
 
-                        echo "<button type='button' class='button' data-answer='$answer' data-score='$answerScore'>$answer</button>";
+                        echo "<button type='button' class='button' data-answer='$answer' data-score='$answerScore' onclick='selectAnswer(this)'>$answer</button>";
                     }
                 } else {
                     echo "Error: " . $conn->error;
@@ -223,13 +184,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $conn->error;
         }
 
-        $conn->close();        ?>
-
+        $conn->close();
+        ?>
         <input class="input" type="date" name="date" id="date" required><br>
         <div class="buttons">
             <button class="save" type="button" onclick="prevQuestion()">Vorige</button>
             <button class="save" type="submit">Opslaan</button>
-            <button class="save" type="button" onclick="nextQuestion()">Volgende</button><br />
+            <button class="save" type="button" onclick="nextQuestion()">Volgende</button>
+            <br/>
         </div>
     </form>
 </div>
