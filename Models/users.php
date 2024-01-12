@@ -108,7 +108,6 @@ class users
         // Use individual variables for bind_param
         $result->bind_param('siii', $password, $admin, $blocked, $id);
 
-        echo $sql;
 
         if ($result->execute()) {
             return true;
@@ -120,20 +119,6 @@ class users
     public function deleteUserById($id) {
         $sql = "DELETE FROM `{$this->tableName}` WHERE {$this->primaryKey} = {$id}";
         $result = $this->connection->prepare($sql);
-
-        if ($result->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function insertUser($name, $password, $admin, $blocked) {
-        $sql = "INSERT INTO {$this->tableName} ({$this->columns[1]}, {$this->columns[2]}, {$this->columns[3]}, {$this->columns[4]}) VALUES (?, ?, ?, ?)";
-        $result = $this->connection->prepare($sql);
-
-        // Use individual variables for bind_param
-        $result->bind_param('ssii', $name, $password, $admin, $blocked);
 
         if ($result->execute()) {
             return true;

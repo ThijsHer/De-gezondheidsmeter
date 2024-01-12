@@ -126,7 +126,6 @@ if (isset($_POST['save'])) {
 <div>
 </div>
 
-<?php echo $message; ?>
 <form class="form search" action="" method="get">
     <label for="search">Search by Username:</label>
     <input class="typefield" type="text" name="search" placeholder="Enter username">

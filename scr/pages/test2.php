@@ -174,8 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $conn->close();
-}
-?>
+}?>
 
 <div class="container">
     <form method="post" action="">
@@ -224,8 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $conn->error;
         }
 
-        $conn->close();
-        ?>
+        $conn->close();        ?>
 
         <input class="input" type="date" name="date" id="date" required><br>
         <div class="buttons">
