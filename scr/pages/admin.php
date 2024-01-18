@@ -1,15 +1,24 @@
+
 <?php
 include_once '../../Assets/Code/AutoLoader.php';
-
+include '../includes/conn.php';
 
 $controller = new AdminController();
 $baseController = new BaseController();
 
 $baseController->checkAdmin();
 
-if (isset($_POST['deleteQuestion'])) {
-    $controller->deleteQuestion($_POST['question_id']);
+if (isset($_POST['deleteQuestionId'])) {
+    $questionIdToDelete = $_POST['deleteQuestionId'];
+
+    $sql = "DELETE FROM vragen WHERE idvragen = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $questionIdToDelete);
+    $stmt->execute();
+    $stmt->close();
 }
+
 if (isset($_POST['createQuestion'])) {
     $controller->makeQuestion($_POST['vraag'], $_POST['uitleg']);
 }
@@ -57,6 +66,10 @@ include '../includes/header.php';
             <form action="adminBewerken.php" method="get">
                 <input type="hidden" value="<?= $record['question']->idvragen ?>" name="id">
                 <input class="edit" type="submit" value="Bewerk vraag">
+            </form>
+            <form action="admin.php" method="post">
+                <input type="hidden" value="<?= $record['question']->idvragen ?>" name="deleteQuestionId">
+                <input class="delete" type="submit" name="deleteQuestion" value="Delete">
             </form>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">
