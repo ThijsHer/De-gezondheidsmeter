@@ -1,4 +1,4 @@
-const questions = document.getElementsByClassName("question").length
+const questions = document.getElementsByClassName("question").length;
 let counterDisplay = document.querySelector('.counter-div');
 let counter = 1;
 
@@ -18,8 +18,6 @@ function showQuestion(questionId) {
             item.classList.remove("hidden");
         }
     }
-
-
 }
 
 function nextQuestion() {
@@ -44,4 +42,23 @@ function selectAnswer(button) {
     });
 
     button.classList.add('selected');
+
+    let questionId = button.closest('.question').getAttribute('data-question-id');
+    let hiddenInput = document.getElementById(`question_${questionId}`);
+    hiddenInput.value = button.getAttribute('data-score');
+
+    console.log("Selected Answer:", hiddenInput.value);
+    console.log("Question ID:", questionId);
 }
+
+document.querySelector('form').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+    }
+
+    this.submit();
+});
