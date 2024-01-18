@@ -22,6 +22,7 @@
     margin: 0 50px;
     padding: 50px;
     height: 520px;
+    width: fit-content;
 
 }
 
@@ -46,3 +47,54 @@ button {
 .container {
     align-items: center;
 }
+
+@media only screen and (max-width: 850px) {
+    html {
+        background-color: white;
+    }
+    .container {
+        display: block;
+    }
+
+    .meter, .buttons, .background {
+        width: auto;
+    }
+
+    .speedometer-container {
+        margin: 0 auto;
+    }
+    
+    .background {
+        margin: 0;
+        padding: 0;
+        height: auto;
+    }
+
+    .meter .background {
+        margin: 0;
+        padding: 3rem 0 0 0;
+        height: auto;
+    }
+
+    .buttons .background {
+        position: absolute;
+        width: 100%;
+        margin-top: -7rem;
+        z-index: 11;
+    }
+
+    .background .button {
+        margin: 0.5rem 0;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .meter, .buttons, .background {
+        width: auto;
+    }
+
+    .speedometer-container {
+        margin: 0 auto;
+    }
+    
+  }

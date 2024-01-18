@@ -15,7 +15,6 @@ header {
 
 .logo h1 {
     margin: 0;
-    width: fit-content;
 }
 
 a {
@@ -47,3 +46,30 @@ a {
     color: #222222;
 }
 
+@media only screen and (max-width: 850px) {
+    .header-button {
+        margin: 0.25rem 0;
+    }
+
+    .buttons-header {
+        width: min-content;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .header-container {
+        display: block;
+    }
+
+    .buttons-header {
+        width: auto;
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .logo-text {
+        margin-top: 0.5rem !important;
+        width: auto;
+        text-align: center;
+    }
+}
