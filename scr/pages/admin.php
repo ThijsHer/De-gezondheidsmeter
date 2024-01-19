@@ -41,6 +41,7 @@ $total = $controller->getCombinedAnswersAndQuestions();
     <title>Admin</title>
     <link rel="stylesheet" href="../../Assets/CSS/main.css">
     <link rel="stylesheet" href="../../Assets/CSS/adminvragen.css">
+    <link rel="stylesheet" href="../../Assets/CSS/adminUser.css">
     <link rel="stylesheet" href="../../Assets/CSS/header.css">
 </head>
 
@@ -69,7 +70,7 @@ include '../includes/header.php';
             </form>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?= $record['question']->idvragen ?>" name="deleteQuestionId">
-                <input class="delete" type="submit" name="deleteQuestion" value="Delete">
+                <input class="delete2" type="submit" name="deleteQuestion" value="Delete">
             </form>
             <form action="admin.php" method="post">
                 <input type="hidden" value="<?php echo $record['question']->idvragen ?>" name="vraag_id">

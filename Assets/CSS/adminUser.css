@@ -11,13 +11,20 @@ button {
     height: 55px;
     width: 240px;
     text-align: center;
-    background: rgb(7,185,51);
-    background: linear-gradient(90deg, rgba(7,185,51,1) 0%, rgba(46,199,61,1) 36%, rgba(54,230,195,1) 100%);
+    background: rgb(7, 185, 51);
+    background: linear-gradient(90deg, rgba(7, 185, 51, 1) 0%, rgba(46, 199, 61, 1) 36%, rgba(54, 230, 195, 1) 100%);
 }
 
 .edit {
-   background-color: deepskyblue;
+    background-color: deepskyblue;
 }
+
+.delete2 {
+    height: 55px;
+    width: 240px;
+    background: red !important;
+}
+
 
 .delete {
     background-color: red;
