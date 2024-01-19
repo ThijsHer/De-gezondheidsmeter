@@ -94,22 +94,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error: Entered date cannot be higher than today.";
     } else {
         $totalScore = 0;
-        var_dump($_POST);
-        $counter = 0;
 
         $query2 = $conn->prepare("INSERT INTO dagschema (score, date, users_id) VALUES (?, ?, ?)");
 
-        foreach ($_POST['questionanswer'] as $key => $value) {
-            $questionId = $_POST['questionid'][$counter];
-            $answer = $value;
+        if (!$query2) {
+            echo "Error preparing statement: " . $conn->error;
+        } else {
+            $counter = 0;
 
-            $query2->bind_param("iss", $answer, $enteredDate, $_SESSION['user_id']);
-            $result2 = $query2->execute();
+            foreach ($_POST['questionanswer'] as $key => $value) {
+                $questionId = $_POST['questionid'][$counter];
+                $answer = $value;
 
-            $counter++;
+                $result2 = $query2->bind_param("iss", $answer, $enteredDate, $_SESSION['user_id']);
+                if (!$result2) {
+                    echo "Error binding parameters: " . $query2->error;
+                }
+
+                $result2 = $query2->execute();
+
+                if (!$result2) {
+                    echo "Error executing statement: " . $query2->error;
+                }
+
+                $counter++;
+            }
+
+            $query2->close();
         }
-
-        $query2->close();
     }
 
     $conn->close();
@@ -117,7 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <div class="container">
-    <form method="post" action="home.php">
+    <form method="post" action="">
         <div id="questions">
             <div class='counter-div'>1</div>
             <?php
