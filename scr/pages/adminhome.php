@@ -16,9 +16,15 @@ $baseController->checkAdmin();
     <title>Document</title>
     <link rel="stylesheet" href="../../Assets/CSS/main.css">
     <link rel="stylesheet" href="../../Assets/CSS/header.css">
+    <link rel="stylesheet" href="../../Assets/CSS/adminhome.css">
 </head>
 <body>
-<a href="admin.php">Voeg vragen toe/ pas vragen aan</a><br>
-<a href="adminUsers.php">edit users</a>
+<div class="welkom">
+    <h1>Welkom Admin.</h1>
+</div>
+<div class="container">
+    <a class="a" href="admin.php">Voeg vragen toe/ pas vragen aan</a><br>
+    <a class="a" href="adminUsers.php">edit users</a>
+</div>
 </body>
 </html>
